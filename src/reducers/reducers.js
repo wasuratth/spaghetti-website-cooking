@@ -28,7 +28,7 @@ const changeValue = (state, action) => {
     });
 };
 
-const exercise0 = (state = initialState, action) => {
+const reducers = (state = initialState, action) => {
     // usually reducer core is just a switch on action.type
     // if you need to perform operations on values, create an external function and use it
     switch (action.type) {
