@@ -2,32 +2,19 @@ import React from 'react';
 import logo from '../logo.png';
 
 
-import { Link } from 'react-router-dom' ; 
+import { useHistory , Redirect } from 'react-router-dom' ; 
 import { Form, Input, Button, Checkbox , message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import api from '../api/Api' ; 
 
 
-export default class LoginPage extends React.Component {
+export default class RegisterPage extends React.Component {
    
     render() {
          
 
         const onFinish = async (values ) =>  {
-            localStorage.setItem('token' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMjI0ZDlmZDNlZjA1MzgyYzAzNjBkZiIsIm5hbWUiOiJXYXN1cmF0IFRoYW1wYW55YSIsImlhdCI6MTU5NjEwMTEzMywiZXhwIjoxNTk2NzA1OTMzfQ.LrKuCBUbvtnNK7vDDsWVl8z1I6S1x4C7SPyzAhroJ3Q' ) ;  
-            window.location.href = '/main' ;
-             
-            /*
-            try{
-                const res = await api.post("auth/signin" ,  { ...values} ) ;  
-                const {token} = res.data ; 
-                localStorage.setItem('token' , token ) ;  
-            }catch(error){
-                const { message : _m } = error.response.data.error ;
-                message.error(_m); 
-            }
-            */
-         
+            
         }
 
 
@@ -35,10 +22,10 @@ export default class LoginPage extends React.Component {
         return [
             <div style={{padding:10}}>
                 <div style={{ textAlign: 'center' }}>
-                    <img src={logo} style={{ maxWidth: 200, margin: 'auto' }} />
+                    <img src={logo} style={{ maxWidth: 150 , margin: 'auto' }} />
                     <div style={{ paddingTop: 20 }}>
-                        <h1>เข้าสู่ระบบ</h1>
-                        <h3>ยินดีต้อนรับสมาชิก</h3>
+                        <h1>สมัครสมาชิก</h1>
+                        <h3>กรุณากรอกข้อมูลของท่าน</h3>
                     </div>
                 </div>
 
@@ -47,6 +34,12 @@ export default class LoginPage extends React.Component {
                      initialValues={{ remember: true }}
                     onFinish={onFinish}
                 >
+                     <Form.Item
+                        name="name"
+                        rules={[{ required: true, message: 'Please input your Name!' }]}
+                    >
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="กรุณากรอกชื่อ"  size="large" />
+                    </Form.Item>
                     <Form.Item
                         name="username"
                         rules={[{ required: true, message: 'Please input your Username!' }]}
@@ -65,12 +58,21 @@ export default class LoginPage extends React.Component {
 
                         />
                     </Form.Item>
+                    <Form.Item
+                        name="confirmpassword"
+                        rules={[{ required: true, message: 'Please input your Confirm Password!' }]}
+                    >
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Confirm Password"
+                            size="large"
+
+                        />
+                    </Form.Item>
                 </Form>
                 <div style={{textAlign:"center" , marginTop: 10 }}>
-                    <Button type="primary" form="formLogin" key="submit" htmlType="submit" size="large" block  >เข้าสู่ระบบ</Button>
-                    <div style={{textAlign:"center" , marginTop: 10 }}>
-                        <span>คุณเป็นสมาชิกหรือยัง? <Link to="/register">สมัครสมาชิก</Link></span>
-                    </div>
+                    <Button type="primary" form="formLogin" key="submit" htmlType="submit" size="large" block  >สมัครสมาชิก</Button>
                 </div>
                 
             </div>

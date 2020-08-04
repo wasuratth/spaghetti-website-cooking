@@ -2,42 +2,67 @@ import React from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 
-import { UserOutlined, CaretDownOutlined } from '@ant-design/icons';
-import { Layout, Menu, Avatar } from 'antd';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect,
 } from "react-router-dom";
 
 
 import LoginPage from './components/LoginPage'
-import MainPage from './components/MainPage'
+import RegisterPage from './components/RegisterPage'
+import MenuPage from './components/MenuPage' 
+import MainPage from './components/MainPage' 
+import KnowledgePage from './components/KnowledgePage'
+import KnowledgeViewPage from './components/KnowledgeViewPage'
+import GroupPage from './components/GroupPage'
+
+
 import CookingFooter from './components/CookingFooter'
+import CookingHeader from './components/CookingHeader'
+
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        localStorage.getItem('token') ? (
+          children
+        ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+            />
+          )
+      }
+    />
+  );
+}
 
 function App() {
-
   return (
     <Router>
-      <header style={{backgroundColor : "#F9F9F9" , height : 60  , borderBottom: '1px solid #CCC'}}>
-        <Avatar style={{float: 'right' , top: '5px' ,right : '10px'}} size={48} icon={<UserOutlined />}   />
-      </header>
-      <div class="main-content">
+      <CookingHeader />
+      <div className="main-content">
         <Switch>
-          <Route path="/login">
-            <LoginPage></LoginPage>
-          </Route>
-          <Route path="/main">
-            <MainPage></MainPage>
-          </Route>
+          <Route path="/login"><LoginPage /></Route>
+          <Route path="/register"><RegisterPage /></Route>
+          <PrivateRoute path="/main"><MainPage /></PrivateRoute>
+          <PrivateRoute path="/menu/:id"><MenuPage /></PrivateRoute>
+          <PrivateRoute path="/group/:id"><GroupPage /></PrivateRoute>
+          <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
+          <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
+          <Route path="*"><h1>404</h1></Route>
         </Switch>
       </div>
 
       <CookingFooter />
 
-    </Router>
+    </Router >
 
   );
 }

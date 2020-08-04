@@ -1,29 +1,28 @@
 import React from 'react';
 import logo from '../logo.png';
 
-import {Row , Col   } from 'antd';
+import { Row, Col } from 'antd';
 
-import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 export default class MainPage extends React.Component {
     render() {
 
-       
+
         return (
-            <div style={{padding:10}}>
+            <div style={{ padding: 10 }}>
                 <h1>กลุ่มอาหาร</h1>
                 <Row>
-                     {[ ... Array(9)].map((i , key ) => <Col span={8}>
-                        <div style={{padding: 5 , textAlign:'center'}}>
-                            <a href="#" > 
-                                <img src={logo} style={{maxWidth:'100%' , display: 'block'}} />
-                                <div style={{fontFamily: 'font-kawit'}}>รายการอาหาร</div>
-                            </a>
+                    {[...Array(9)].map((i, key) => <Col span={8}>
+                        <div style={{ padding: 5, textAlign: 'center' }}>
+                            <Link to={'/group/' + (key + 1)} >
+                                <img src={logo} style={{ maxWidth: '100%', display: 'block' }} />
+                                <div className={'font-kanit'} style={{ color : '#808080' }}>รายการอาหาร</div>
+                            </Link> 
                         </div>
                     </Col>)}
-                   
-                    
+
+
                 </Row>
             </div>
         )
