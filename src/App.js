@@ -2,19 +2,20 @@ import React from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 
-
+import {Result , Button } from 'antd' ; 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
+  Link 
 } from "react-router-dom";
 
 
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
-import MenuPage from './components/MenuPage' 
-import MainPage from './components/MainPage' 
+import MenuPage from './components/MenuPage'
+import MainPage from './components/MainPage'
 import KnowledgePage from './components/KnowledgePage'
 import KnowledgeViewPage from './components/KnowledgeViewPage'
 import GroupPage from './components/GroupPage'
@@ -56,7 +57,8 @@ function App() {
           <PrivateRoute path="/group/:id"><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
-          <Route path="*"><h1>404</h1></Route>
+          <Route path="/"> <Redirect to={{ pathname: "/login"}}/></Route>
+         
         </Switch>
       </div>
 
