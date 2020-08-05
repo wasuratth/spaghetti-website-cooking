@@ -1,17 +1,21 @@
 import React from 'react';
 import logo from '../logo.png';
 
-import { Row, Col, Typography, List } from 'antd';
+import { Row, Col, Typography, List, Input  } from 'antd';
 import { Link } from 'react-router-dom';
+import { SearchOutlined  } from '@ant-design/icons';
 
-
+const { Search } = Input;
 export default class knowledgePage extends React.Component {
 
 
     render() {
         return (
-            <div style={{ padding: 10 }}>
+            <div style={{ padding: 10 }}>                
                 <h1>เนื้อหาความรู้</h1>
+                <Input placeholder="Search"
+                       prefix={<SearchOutlined  />} />
+                <br />            
                 <Row>
                     <Col span={24}>
                         <List
