@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 
-import {Result , Button } from 'antd' ; 
+import { Result, Button } from 'antd';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-  Link 
+  Link
 } from "react-router-dom";
 
 
@@ -20,6 +20,8 @@ import CommentPage from './components/CommentPage'
 import KnowledgePage from './components/KnowledgePage'
 import KnowledgeViewPage from './components/KnowledgeViewPage'
 import GroupPage from './components/GroupPage'
+import ProfilePage from './components/ProfilePage' ; 
+import MenuFormPage from './components/MenuFormPage' ; 
 
 
 import CookingFooter from './components/CookingFooter'
@@ -53,14 +55,23 @@ function App() {
         <Switch>
           <Route path="/login"><LoginPage /></Route>
           <Route path="/register"><RegisterPage /></Route>
+          <PrivateRoute path="/profile"><ProfilePage /></PrivateRoute>
           <PrivateRoute path="/main"><MainPage /></PrivateRoute>
+          <PrivateRoute path="/menuadd"><MenuFormPage /></PrivateRoute>
           <PrivateRoute path="/menu/:id"><MenuPage /></PrivateRoute>
           <PrivateRoute path="/comment"><CommentPage /></PrivateRoute>
           <PrivateRoute path="/group/:id"><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
-          <Route path="/"> <Redirect to={{ pathname: "/login"}}/></Route>
-         
+          <Route path="/"> <Redirect to={{ pathname: "/login" }} /></Route>
+          <Route path="*">
+            <Result
+              status="404"
+              title="404"
+              subTitle="Sorry, the page you visited does not exist."
+              extra={<Button type="primary">Back Home</Button>}
+            />
+          </Route>
         </Switch>
       </div>
 
