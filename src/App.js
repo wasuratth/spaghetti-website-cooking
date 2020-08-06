@@ -16,6 +16,7 @@ import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
 import MenuPage from './components/MenuPage'
 import MainPage from './components/MainPage'
+import CommentPage from './components/CommentPage'
 import KnowledgePage from './components/KnowledgePage'
 import KnowledgeViewPage from './components/KnowledgeViewPage'
 import GroupPage from './components/GroupPage'
@@ -54,6 +55,7 @@ function App() {
           <Route path="/register"><RegisterPage /></Route>
           <PrivateRoute path="/main"><MainPage /></PrivateRoute>
           <PrivateRoute path="/menu/:id"><MenuPage /></PrivateRoute>
+          <PrivateRoute path="/comment"><CommentPage /></PrivateRoute>
           <PrivateRoute path="/group/:id"><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
