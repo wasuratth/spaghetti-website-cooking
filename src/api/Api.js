@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+console.log("ENV" , process.env.NODE_ENV); 
+
 const Api = axios.create({
-    baseURL: "http://localhost:3004/api/",
+    baseURL: process.env.REACT_APP_API_SERVER || "http://spaghetti-api.topwork.asia/api/" ,
     timeout: 10000
 });
 
