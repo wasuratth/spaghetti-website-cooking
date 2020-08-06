@@ -47,9 +47,9 @@ export default class GroupPage extends React.Component {
 
                 <div>
                     <Carousel autoplay>
-                        <div><h3><img src={pic_menu1} style={{maxWidth: '100%' , float:'center'  , display : 'block'}} /></h3></div>
-                        <div><h3><img src={pic_menu1} style={{maxWidth: '100%' , float:'center'  , display : 'block'}} /></h3></div>
-                        <div><h3><img src={pic_menu1} style={{maxWidth: '100%' , float:'left'  , display : 'block'}} /></h3></div>                    
+                        <div><h3><img src={pic_menu1} style={{maxWidth: '40%' , float:'center'  , display : 'block'}} /></h3></div>
+                        <div><h3><img src={pic_menu1} style={{maxWidth: '40%' , float:'center'  , display : 'block'}} /></h3></div>
+                        <div><h3><img src={pic_menu1} style={{maxWidth: '40%' , float:'center'  , display : 'block'}} /></h3></div>                    
                     </Carousel>
                 </div>
 

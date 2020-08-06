@@ -29,11 +29,11 @@ export default class MenuPage extends React.Component {
                 <ul className="font-kawit" style={{fontSize:18 , listStyleType : 'decimal' }}>
                     {[ ... Array(3)].map(( _i , k) => <li> ขั้นตอนที่ {k}</li>  )}
                 </ul>
+                
                 <div style={{textAlign : 'center'}}>
-                    <Link to={'/login'} >
+                    <Link to={'/comment'} >
                         <Button type="primary">แสดงความคิดเห็น</Button>
-                    </Link>
-                    
+                    </Link>                    
                 </div>
             </div>
         )
