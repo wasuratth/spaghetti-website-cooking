@@ -1,14 +1,17 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col , Modal } from 'antd';
 
 import {
     HomeOutlined,
-    UnorderedListOutlined  ,
+    UnorderedListOutlined,
     UserOutlined,
     LogoutOutlined,
+    ExclamationCircleOutlined,
 } from '@ant-design/icons';
 
-import { useLocation , Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+
+const { confirm } = Modal;
 
 const footerStyle = {
     backgroundColor: "#F9F9F9",
@@ -32,23 +35,42 @@ const phantomStyle = {
     width: "100%"
 };
 
+const showConfirm = () => {
+    confirm({
+        title: 'ออกจากระบบ',
+        icon: <ExclamationCircleOutlined />,
+        content: 'คุณต้องการออกจากระบบ ใช่/ไม่ ',
+        onOk() {
+            // console.log('ตกลง');
+            localStorage.clear(); 
+            window.location.href = '/login'
+        },
+        onCancel() {
+            console.log('ยกเลิก');
+        },
+    });
+}
+
+
 const CookingFooter = ({ children }) => {
     const location = useLocation();
-    return (<>{!( location.pathname === '/login' || location.pathname === '/register' ) && <footer >
-        <div style={phantomStyle} /> 
+    return (<>{!(location.pathname === '/login' || location.pathname === '/register') && <footer >
+        <div style={phantomStyle} />
         <div style={footerStyle}>
-            <Row gutter={16}> 
+            <Row gutter={16}>
                 <Col className="gutter-row" span={6} style={{ fontSize: '24px' }} >
                     <Link to="/main" ><HomeOutlined style={{ color: "#8E8E93" }} /></Link>
                 </Col>
                 <Col className="gutter-row" span={6} style={{ fontSize: '24px' }}>
-                    <Link to="/knowledge" ><UnorderedListOutlined  style={{ color: "#8E8E93" }} /></Link>
+                    <Link to="/knowledge" ><UnorderedListOutlined style={{ color: "#8E8E93" }} /></Link>
                 </Col>
                 <Col className="gutter-row" span={6} style={{ fontSize: '24px' }}>
                     <Link to="/profile" ><UserOutlined style={{ color: "#8E8E93" }} /></Link>
                 </Col>
                 <Col className="gutter-row" span={6} style={{ fontSize: '24px' }}>
-                    <Link to="/login" onClick={ ()=>{ localStorage.clear() }} ><LogoutOutlined style={{ color: "#8E8E93" }} /></Link>
+                    <a href="#" onClick={() => { showConfirm() }} >
+                        <LogoutOutlined style={{ color: "#8E8E93" }} />
+                    </a>
                 </Col>
             </Row>
         </div>
