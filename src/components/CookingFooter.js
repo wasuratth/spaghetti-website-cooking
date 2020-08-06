@@ -9,7 +9,7 @@ import {
     ExclamationCircleOutlined,
 } from '@ant-design/icons';
 
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Redirect } from "react-router-dom";
 
 const { confirm } = Modal;
 
@@ -41,10 +41,9 @@ const showConfirm = () => {
         icon: <ExclamationCircleOutlined />,
         content: 'คุณต้องการออกจากระบบ ใช่/ไม่ ',
         onOk() {
-            // console.log('ตกลง');
             localStorage.clear(); 
             window.location.href = '/login'
-        },
+         },
         onCancel() {
             console.log('ยกเลิก');
         },
