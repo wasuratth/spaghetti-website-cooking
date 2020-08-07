@@ -5,61 +5,118 @@ import morakut from '../image/morakut.png';
 
 import { Rate, Button, Comment, Tooltip, Avatar, Input } from 'antd';
 
-import { SendOutlined   } from '@ant-design/icons';
+import { SendOutlined, UserOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
 
 import moment from 'moment';
 
-export default class MenuPage extends React.Component {
-    
+import Api from '../api/Api';
+
+import { withRouter } from "react-router";
+
+
+class CommentPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { txtComment: "", rateStar: 0, comments: [] };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeStar = this.handleChangeStar.bind(this);
+    }
+
+    handleChange = (event) => {
+        console.log(this.state.rateStar);
+        this.setState({ txtComment: event.target.value });
+    }
+
+    handleChangeStar = (event) => {
+        this.setState({ rateStar: event });
+    }
+
+    handleKeyDown = async (event) => {
+        if (event.key === 'Enter') {
+            this.sendComment();
+        }
+    }
+
+    sendComment = async () => {
+        try {
+            const menu_id = this.props.match.params.menu_id;
+            console.log(menu_id);
+            const res = await Api.post('comment', {
+                menu_id: menu_id,
+                cm_detail : this.state.txtComment,
+                cm_point : this.state.rateStar,
+            });
+
+            this.setState({ txtComment: "", rateStar: 0 });
+
+            this.getComent();
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    getComent = async () => {
+        try {
+            const menu_id = this.props.match.params.menu_id;
+            const res = await Api.get('comment/menu/' + menu_id);
+            this.setState({ comments: res.data.data });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async componentDidMount() {
+        this.getComent();
+    }
+
+
     render() {
-
+        let { txtComment, rateStar, comments } = this.state;
         return (
-            <div style={{ padding: 10 }}>                
-                <img src={spaghetti} style= {{width : '100%'}}/>
-                
+            <div style={{ padding: 10 }}>
+                <img src={spaghetti} style={{ width: '100%' }} />
+
                 <div style={{ textAlign: 'left' }}>
-                    <h1>Comments</h1>                
+                    <h1>แสดงความคิดเห็น</h1>
                 </div>
-
-                <Comment
-                  //actions={actions}
-                author={<a><strong>มรกต เจ้าแม่จาน</strong></a>}
-                avatar={
-                    <Avatar
-                        src={morakut}          
-                    />
-                }
-                content={
-                    <p>
-                        น่าทานมากๆ เลยค่ะ เดี๋ยวลองเอาสูตรไปทำบ้างนะคะ
-                        ขอบคุณค่ะ
-                    </p>
-                }
-                datetime={
-                    <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().fromNow()}</span>
-                    </Tooltip>
-                }
-                />                                
-
-                <div style={{ textAlign: 'center' }}>
-
-                    <Input placeholder="Write a comment" suffix={<SendOutlined Color="red"/>} />
-                    
+                <div>
+                    <div style={{ textAlign: 'center' }}>
+                        <Input suffix={<SendOutlined Color="red" />} placeholder="กรุณากรอกความคิดเห็นของท่าน" value={txtComment} onChange={this.handleChange} onKeyDown={this.handleKeyDown} />
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                        คะแนน <Rate allowHalf value={rateStar} onChange={this.handleChangeStar} />
+                    </div>
                 </div>
+                {comments.map((item, key) => {
+                    const { cm_detail, cm_point, createdAt, user } = item ;
+                    return (
+                        <div>
+                            <Comment
+                                //actions={actions}
+                                author={<a><strong>{user.name}</strong></a>}
+                                avatar={<Avatar icon={<UserOutlined />} />}
+                                content={
+                                    <div>
+                                        <p>{cm_detail}</p>
+                                        <Rate disable allowHalf value={cm_point} />
+                                    </div>}
+                                datetime={<Tooltip title={moment().format(createdAt)}><span>{moment(createdAt).fromNow()}</span></Tooltip>}
+                            />
+                        </div>)
+                })}
 
-                <div style={{ textAlign: 'center' }}>
 
-                    คะแนน <Rate disable allowHalf defaultValue={0.0} />
 
-                </div>
-                    
-                
             </div>
 
-            
+
         )
     }
 }
+
+export default withRouter(CommentPage); 

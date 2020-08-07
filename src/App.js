@@ -59,7 +59,7 @@ function App() {
           <PrivateRoute path="/main"><MainPage /></PrivateRoute>
           <PrivateRoute path="/menuadd"><MenuFormPage /></PrivateRoute>
           <PrivateRoute path="/menu/:id"><MenuPage /></PrivateRoute>
-          <PrivateRoute path="/comment"><CommentPage /></PrivateRoute>
+          <PrivateRoute path="/comment/:menu_id"><CommentPage /></PrivateRoute>
           <PrivateRoute path="/group/:id" ><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
