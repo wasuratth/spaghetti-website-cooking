@@ -21,7 +21,8 @@ import KnowledgePage from './components/KnowledgePage'
 import KnowledgeViewPage from './components/KnowledgeViewPage'
 import GroupPage from './components/GroupPage'
 import ProfilePage from './components/ProfilePage' ; 
-import MenuFormPage from './components/MenuFormPage' ; 
+import MenuFormPage from './components/MenuFormPage'; 
+import SearchViewPage from './components/SearchViewPage' ; 
 
 
 import CookingFooter from './components/CookingFooter'
