@@ -1,42 +1,51 @@
 import React from 'react';
+import { useParams } from 'react-router';
+import { Route, Switch, Link } from 'react-router-dom';
+import { withRouter } from "react-router";
+
+
 import logo from '../logo.png';
+
 import pic_menu1 from '../image/pic_menu1.jpg'
 import pic_menu2 from '../image/pic_menu2.jpg'
 import pic_menu3 from '../image/pic_menu3.jpg'
 
 import { Row, Col, List, Input, Rate, Card, Carousel } from 'antd';
-import { SearchOutlined  } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { SearchOutlined } from '@ant-design/icons';
 
-const { Search } = Input;    
+import Api from '../api/Api';
 
-const data = [
-    {
-      title: '',
-    },
-    {
-      title: '',
-    },
-    {
-      title: '',
-    },
-    {
-      title: '',
-    },
-  ];
+const { Search } = Input;
 
-export default class GroupPage extends React.Component {
+
+
+class GroupPage extends React.Component {
+
+
+    constructor(props) {
+        super(props)
+        this.state = { menuList: [] }
+       
+     }
+
+    async componentDidMount() {
+        try {
+            const id = this.props.match.params.id; 
+            const res = await Api.get('groupmap/type/' + id );
+            this.setState({ menuList: res.data.data });
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     render() {
 
 
         return (
             <div style={{ padding: 10 }}>
                 <h1>อาหารเพื่อสุขภาพ</h1>
-                <Input placeholder="Search" 
-                       prefix={<SearchOutlined  />} />
-                <br />            
-                <br />  
-                
+                <Input placeholder="Search" prefix={<SearchOutlined />} />
                 {/* <Row>
                 <img src={pic_menu1} style={{maxWidth: '30%' , float:'left'  , display : 'block'}} />
                 </Row>
@@ -44,14 +53,15 @@ export default class GroupPage extends React.Component {
                 <Row>
                 <img src={pic_menu3} style={{maxWidth: '30%' , float:'left'  , display : 'block'}} />
                 </Row> */}
-
+                {/*                 
                 <div>
                     <Carousel autoplay>
                         <div><h3><img src={pic_menu1} style={{maxWidth: '40%' , float:'center'  , display : 'block'}} /></h3></div>
                         <div><h3><img src={pic_menu1} style={{maxWidth: '40%' , float:'center'  , display : 'block'}} /></h3></div>
                         <div><h3><img src={pic_menu1} style={{maxWidth: '40%' , float:'center'  , display : 'block'}} /></h3></div>                    
                     </Carousel>
-                </div>
+                </div> 
+*/}
 
                 {/* <div className="site-card-wrapper">
                     <Row gutter={24}>
@@ -83,24 +93,29 @@ export default class GroupPage extends React.Component {
                     )}
                 />, */}
 
-                <h3>Recommend Menu</h3>
+                <h2>Recommend Menu</h2>
                 <Row>
                     <Col span={24}>
                         <List
                             bordered
-                            dataSource={ [ ... Array(16)].map( (_i , k) => k + 1) }
-                            renderItem={item => (
-                                <List.Item>
-                                    <Link to={'/menu/' + item} >                                        
-                                        <img src={logo} style={{maxWidth: '30%' , float:'left'  , display : 'block'}} />
-                                        <div style={{ maxWidth: '70%' , float:'left' , paddingLeft: 10 }}>
-                                            <h3 style={{marginBottom: 0 }}>ไข่เจียวหมูสับ</h3>
-                                            <p style={{ color: '#808080' }}>ไข่เจียวหมูสับ ไข่เจียวหมูสับ ไข่เจียวหมูสับ ไข่เจียวหมูสับ ไข่เจียวหมูสับ ไข่เจียวหมูสับ ไข่เจียวหมูสับ</p>                                            
-                                            <Rate disable allowHalf defaultValue={3} />                                            
-                                        </div>     
-                                    </Link>
-                                </List.Item>
-                            )}
+                            dataSource={this.state.menuList}
+                            renderItem={item => {
+                                const { _id, title, detail, picture, star } = item.m_id;
+                                return (
+                                    <List.Item>
+                                        <Link to={'/menu/' + _id} >
+                                            <img src={logo} width={150} style={{ maxWidth: '30%', float: 'left', display: 'block' }} />
+                                            <div style={{ float: 'left', paddingLeft: 10 }}>
+                                                <h3 style={{ marginBottom: 0 }} >{title}</h3>
+                                                <p style={{ color: '#808080', marginBottom: 5 }} >{detail}</p>
+                                                <Rate disable allowHalf defaultValue={star} style={{ fontSize: 10 }} />
+                                            </div>
+                                        </Link>
+                                    </List.Item>
+                                )
+                            }
+
+                            }
                         />
                     </Col>
                 </Row>
@@ -108,3 +123,6 @@ export default class GroupPage extends React.Component {
         )
     }
 }
+
+
+export default withRouter(GroupPage);

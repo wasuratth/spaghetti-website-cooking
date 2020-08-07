@@ -60,7 +60,7 @@ function App() {
           <PrivateRoute path="/menuadd"><MenuFormPage /></PrivateRoute>
           <PrivateRoute path="/menu/:id"><MenuPage /></PrivateRoute>
           <PrivateRoute path="/comment"><CommentPage /></PrivateRoute>
-          <PrivateRoute path="/group/:id"><GroupPage /></PrivateRoute>
+          <PrivateRoute path="/group/:id" ><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
           <Route path="/"> <Redirect to={{ pathname: "/login" }} /></Route>
