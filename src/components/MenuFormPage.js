@@ -53,48 +53,6 @@ export default class MenuFormPage extends React.Component {
                                 <Select.Option value="c9">เมนูเครื่องดื่ม</Select.Option>
                             </Select>
                         </Form.Item>
-                        <Form.List name="step" label="ขั้นตอน" >
-                            {(steps, { add, remove }) => {
-                                return (
-                                    <div>
-                                        {steps.map((field, index) => (
-                                            <Form.Item
-                                                label={index === 0 ? 'ขั้นตอน' : ''}
-                                                required={false}
-                                                key={field.key}
-                                            >
-                                                <Form.Item
-                                                    {...field}
-                                                    validateTrigger={['onChange', 'onBlur']}
-                                                    rules={[{
-                                                        required: true,
-                                                        whitespace: true,
-                                                        message: "กรุณากรอกขั้นตอนการทำอาหาร",
-                                                    },
-                                                    ]}
-                                                    noStyle
-                                                >
-                                                    <Input placeholder="ขั้นตอน" style={{ width: '85%' }} />
-                                                </Form.Item>
-                                                {steps.length > 1 ? (
-                                                    <MinusCircleOutlined
-                                                        className="dynamic-delete-button"
-                                                        style={{ margin: '0 8px' }}
-                                                        onClick={() => {
-                                                            remove(field.name);
-                                                        }}
-                                                    />
-                                                ) : null}
-                                            </Form.Item>
-                                        ))}
-                                        <Form.Item style={{ textAlign: "center" }}>
-                                            <Button type="dashed" onClick={() => { add(); }} style={{ width: '60%' }}>
-                                                <PlusOutlined /> เพิ่มขั้นตอน </Button>
-                                        </Form.Item>
-                                    </div>
-                                );
-                            }}
-                        </Form.List>
 
                         <Form.List name="ingredients" label="วัตถุดิบ" >
                             {(ingredients, { add, remove }) => {
@@ -138,6 +96,51 @@ export default class MenuFormPage extends React.Component {
                                 );
                             }}
                         </Form.List>
+
+                        <Form.List name="step" label="ขั้นตอน" >
+                            {(steps, { add, remove }) => {
+                                return (
+                                    <div>
+                                        {steps.map((field, index) => (
+                                            <Form.Item
+                                                label={index === 0 ? 'ขั้นตอน' : ''}
+                                                required={false}
+                                                key={field.key}
+                                            >
+                                                <Form.Item
+                                                    {...field}
+                                                    validateTrigger={['onChange', 'onBlur']}
+                                                    rules={[{
+                                                        required: true,
+                                                        whitespace: true,
+                                                        message: "กรุณากรอกขั้นตอนการทำอาหาร",
+                                                    },
+                                                    ]}
+                                                    noStyle
+                                                >
+                                                    <Input placeholder="ขั้นตอน" style={{ width: '85%' }} />
+                                                </Form.Item>
+                                                {steps.length > 1 ? (
+                                                    <MinusCircleOutlined
+                                                        className="dynamic-delete-button"
+                                                        style={{ margin: '0 8px' }}
+                                                        onClick={() => {
+                                                            remove(field.name);
+                                                        }}
+                                                    />
+                                                ) : null}
+                                            </Form.Item>
+                                        ))}
+                                        <Form.Item style={{ textAlign: "center" }}>
+                                            <Button type="dashed" onClick={() => { add(); }} style={{ width: '60%' }}>
+                                                <PlusOutlined /> เพิ่มขั้นตอน </Button>
+                                        </Form.Item>
+                                    </div>
+                                );
+                            }}
+                        </Form.List>
+
+                        
 
                     </Form>
                     <Row gutter={6}>
