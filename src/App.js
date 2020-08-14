@@ -53,6 +53,7 @@ function App() {
       <CookingHeader />
       <div className="main-content">
         <Switch>
+          <Route exact path="/"> <Redirect to={{ pathname: "/login" }} /></Route>
           <Route path="/login"><LoginPage /></Route>
           <Route path="/register"><RegisterPage /></Route>
           <PrivateRoute path="/profile"><ProfilePage /></PrivateRoute>
@@ -63,7 +64,7 @@ function App() {
           <PrivateRoute path="/group/:id" ><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
-          <Route path="/"> <Redirect to={{ pathname: "/login" }} /></Route>
+          
           <Route path="*">
             <Result
               status="404"
@@ -72,9 +73,9 @@ function App() {
               extra={<Button type="primary">Back Home</Button>}
             />
           </Route>
+         
         </Switch>
       </div>
-
       <CookingFooter />
 
     </Router >
