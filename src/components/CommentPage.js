@@ -20,7 +20,7 @@ class CommentPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { txtComment: "", rateStar: 0, comments: [] };
+        this.state = { txtComment: "", rateStar: 0, comments: [], menu: { picture: null } };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeStar = this.handleChangeStar.bind(this);
@@ -47,8 +47,8 @@ class CommentPage extends React.Component {
             console.log(menu_id);
             const res = await Api.post('comment', {
                 menu_id: menu_id,
-                cm_detail : this.state.txtComment,
-                cm_point : this.state.rateStar,
+                cm_detail: this.state.txtComment,
+                cm_point: this.state.rateStar,
             });
 
             this.setState({ txtComment: "", rateStar: 0 });
@@ -70,17 +70,32 @@ class CommentPage extends React.Component {
         }
     }
 
+    getMenu = async () => {
+        try {
+            const menu_id = this.props.match.params.menu_id;
+            const res = await Api.get('menu/' + menu_id);
+            this.setState({ menu: res.data.data });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async componentDidMount() {
         this.getComent();
+        this.getMenu();
     }
 
 
     render() {
         let { txtComment, rateStar, comments } = this.state;
+        const { picture } = this.state.menu;
+        const imgUrl = picture ? process.env.REACT_APP_API_SERVER + 'picture/' + picture : null;
+
         return (
             <div style={{ padding: 10 }}>
-                <img src={spaghetti} style={{ width: '100%' }} />
-
+                <div style={{ textAlign: 'center' }} >
+                    {imgUrl && <img src={imgUrl} style={{ maxWidth: '100%', maxHeight: 300 , marginBottom : 10 }} />}
+                </div>
                 <div style={{ textAlign: 'left' }}>
                     <h1>แสดงความคิดเห็น</h1>
                 </div>
@@ -93,7 +108,7 @@ class CommentPage extends React.Component {
                     </div>
                 </div>
                 {comments.map((item, key) => {
-                    const { cm_detail, cm_point, createdAt, user } = item ;
+                    const { cm_detail, cm_point, createdAt, user } = item;
                     return (
                         <div>
                             <Comment

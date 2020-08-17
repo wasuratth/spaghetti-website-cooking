@@ -15,6 +15,8 @@ import { SearchOutlined } from '@ant-design/icons';
 
 import Api from '../api/Api';
 
+import ListItem from '../components/ListItem';
+
 const { Search } = Input;
 
 
@@ -24,15 +26,15 @@ class GroupPage extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { title : "" , menuList: [] , txtSearch : "" , isSearch : false  }
-       
-     }
+        this.state = { title: "", menuList: [], txtSearch: "", isSearch: false }
+
+    }
 
     async componentDidMount() {
         try {
-            const id = this.props.match.params.id; 
-            const res = await Api.get('groupmap/type/' + id );
-            this.setState({ title : res.data.title ,  menuList: res.data.data });
+            const id = this.props.match.params.id;
+            const res = await Api.get('groupmap/type/' + id);
+            this.setState({ title: res.data.title, menuList: res.data.data });
         } catch (error) {
             console.log(error)
         }
@@ -40,31 +42,31 @@ class GroupPage extends React.Component {
     }
 
     handleChangeSearch = (event) => {
-        this.setState({ txtSearch: event.target.value }); 
+        this.setState({ txtSearch: event.target.value });
     }
 
-    
+
     handleKeyDownSearch = async (event) => {
         if (event.key === 'Enter') {
             this.searchMenu();
         }
     }
 
-    searchMenu  = async () => {
-        this.setState({ isSearch : true  }); 
+    searchMenu = async () => {
+        this.setState({ isSearch: true });
     }
 
 
     render() {
 
 
-        return ( this.state.isSearch ? <Redirect to={'/search/' + this.state.txtSearch } /> : 
+        return (this.state.isSearch ? <Redirect to={'/search/' + this.state.txtSearch} /> :
             <div style={{ padding: 10 }}>
                 <h1>{this.state.title}</h1>
-                <Input placeholder="Search" prefix={<SearchOutlined />} 
-                value={this.state.txtSearch}
-                onChange={this.handleChangeSearch} 
-                onKeyDown={this.handleKeyDownSearch}  />
+                <Input placeholder="Search" prefix={<SearchOutlined />}
+                    value={this.state.txtSearch}
+                    onChange={this.handleChangeSearch}
+                    onKeyDown={this.handleKeyDownSearch} />
                 {/* <Row>
                 <img src={pic_menu1} style={{maxWidth: '30%' , float:'left'  , display : 'block'}} />
                 </Row>
@@ -122,13 +124,8 @@ class GroupPage extends React.Component {
                                 const { _id, title, detail, picture, star } = item.m_id;
                                 return (
                                     <List.Item>
-                                        <Link to={'/menu/' + _id} >
-                                            <img src={logo} width={150} style={{ maxWidth: '30%', float: 'left', display: 'block' }} />
-                                            <div style={{ float: 'left', paddingLeft: 10 }}>
-                                                <h3 style={{ marginBottom: 0 }} >{title}</h3>
-                                                <p style={{ color: '#808080', marginBottom: 5 }} >{detail}</p>
-                                                <Rate disable allowHalf defaultValue={star} style={{ fontSize: 10 }} />
-                                            </div>
+                                        <Link to={'/menu/' + _id} style={{ display: 'block' }} >
+                                            <ListItem {...item.m_id} />
                                         </Link>
                                     </List.Item>
                                 )

@@ -48,8 +48,8 @@ export default class MainPage extends React.Component {
                 </Row>
                 <Row>
                     <Col  span={24} >
-                        <Link to="/menuadd" >
-                            <Button type="primary" block >เพิ่มเมนูของท่าน</Button>
+                        <Link to="/menu/add" >
+                            <Button type="primary" block className={['font-kawit']} >เพิ่มเมนูของท่าน</Button>
                         </Link>
                     </Col>
                 </Row>

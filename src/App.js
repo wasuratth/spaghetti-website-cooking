@@ -59,7 +59,8 @@ function App() {
           <Route path="/register"><RegisterPage /></Route>
           <PrivateRoute path="/profile"><ProfilePage /></PrivateRoute>
           <PrivateRoute path="/main"><MainPage /></PrivateRoute>
-          <PrivateRoute path="/menuadd"><MenuFormPage /></PrivateRoute>
+          <PrivateRoute path="/menu/add"><MenuFormPage /></PrivateRoute>
+          <PrivateRoute path="/menu/edit/:id"><MenuFormPage /></PrivateRoute>
           <PrivateRoute path="/menu/:id"><MenuPage /></PrivateRoute>
           <PrivateRoute path="/comment/:menu_id"><CommentPage /></PrivateRoute>
           <PrivateRoute path="/group/:id" ><GroupPage /></PrivateRoute>
