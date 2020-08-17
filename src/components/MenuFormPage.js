@@ -109,7 +109,7 @@ class MenuFormPage extends React.Component {
 
         return (
             this.state.isSubmit ?
-                <Redirect to="/main"></Redirect> :
+                <Redirect to={this.props.returnUrl }></Redirect> :
                 <div style={{ padding: 10 }}>
                     {!this.state.menu._id ? <h1>เพิ่มเมนู</h1> : <h1>แกัไขเมนู</h1>}
                     <Form layout="vertical" name="formMenu" onFinish={onFinish} ref={this.formRef} >
@@ -238,7 +238,7 @@ class MenuFormPage extends React.Component {
                         <Col span={12} >
                             <Button type="primary" form="formMenu" key="submit" htmlType="submit" size="large" block >บันทึกข้อมูล</Button></Col>
                         <Col span={12} >
-                            <Link to="/main" >
+                            <Link to={this.props.returnUrl} >
                                 <Button type="warn" block size="large" >ยกเลิก</Button>
                             </Link>
                         </Col>

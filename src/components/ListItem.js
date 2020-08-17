@@ -11,8 +11,8 @@ const ListItem = (props) => {
 
     return (<>
         <Row justify="left">
-            <img src={imgUrl} style={{ maxWidth: 100   , float: 'left', display: 'block' }} />
-            <div style={{ float: 'left', paddingLeft: 10 }}>
+            <img src={imgUrl} style={{ maxWidth: 100  , maxHeight : 75 , float: 'left', display: 'block' , position: 'absolute' }} />
+            <div style={{ float: 'left', paddingLeft: 110 }}>
                 <h3 style={{ marginBottom: 0 }} >{title}</h3>
                 <p style={{ color: '#808080', marginBottom: 5 }} >{detail}</p>
                 <Rate disable allowHalf defaultValue={star} style={{ fontSize: 10 }} />

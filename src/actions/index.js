@@ -1,29 +1,11 @@
-export const changeValue = (event) => {
+import actionTypes from './actionTypes';
+
+export const changeProfilePicture = (event) => {
     return {
-        type: actionTypes.CHANGE_VALUE,
+        type: actionTypes.CHANGE_PROFILE_PICTURE,
         payload: {
             newValue: event.target.value,
         },
     };
 };
-
-// TODO: IMPLEMENT ME
-// I work with /reducers/exercise1.js
-export const buttonClicked = (event) => {
-     console.log(event.target.innerHTML) ; 
-    return {
-        type: actionTypes.BUTTON_CLICKED ,
-        payload: {
-            newValue: event.target.innerHTML  ,
-        },
-    };
-};
-
-export const boxTicked = (event) => {
-    return {
-        type: actionTypes.BOX_TICKED,
-        payload: {
-            hasTickedBox: event.target.checked,
-        },
-    };
-};
+ 

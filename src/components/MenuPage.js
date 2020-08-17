@@ -1,5 +1,5 @@
 import React from 'react';
- 
+
 import { Rate, Button } from 'antd';
 
 import { Link } from 'react-router-dom';
@@ -46,14 +46,14 @@ class MenuPage extends React.Component {
     render() {
 
         const { _id, title, detail, picture, star, ingredients, step } = this.state.menu;
-        const imgUrl = process.env.REACT_APP_API_SERVER + 'picture/' + picture ;
+        const imgUrl = process.env.REACT_APP_API_SERVER + 'picture/' + picture;
 
 
 
         return (
             <div style={{ padding: 10 }}>
-                <h1>{title}</h1>
-                <div style={{textAlign:'center' , paddingTop:10 , paddingBottom : 10 }}>
+                <h1 style={{ wordBreak: 'break-all', margin: 0 }}>{title}</h1>
+                <div style={{ textAlign: 'center', paddingTop: 10, paddingBottom: 10 }}>
                     {picture && <img src={imgUrl} style={{ maxWidth: '100%' }} />}
                 </div>
                 <div style={{ textAlign: 'center' }}>

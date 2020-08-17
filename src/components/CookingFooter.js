@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col , Modal } from 'antd';
+import { Row, Col, Modal } from 'antd';
 
 import {
     HomeOutlined,
@@ -41,9 +41,9 @@ const showConfirm = () => {
         icon: <ExclamationCircleOutlined />,
         content: 'คุณต้องการออกจากระบบ ใช่/ไม่ ',
         onOk() {
-            localStorage.clear(); 
+            localStorage.clear();
             window.location.href = '/login'
-         },
+        },
         onCancel() {
             console.log('ยกเลิก');
         },
