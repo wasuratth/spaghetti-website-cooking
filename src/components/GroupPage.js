@@ -114,7 +114,7 @@ class GroupPage extends React.Component {
                     )}
                 />, */}
 
-                <h2>Recommend Menu</h2>
+                <h2 style={{marginTop:10 }}>เมนูแนะนำ</h2>
                 <Row>
                     <Col span={24}>
                         <List

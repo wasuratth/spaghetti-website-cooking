@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from '../logo.png';
 
-import { Row, Col, Avatar, List, Input } from 'antd';
+import { Row, Col, Avatar, List, Upload, Button, message } from 'antd';
 import { Link, Redirect } from 'react-router-dom';
 
 import {
     UserOutlined,
-    MailOutlined
+    UploadOutlined
 } from '@ant-design/icons';
 
 import ListItem from '../components/ListItem';
@@ -20,6 +20,7 @@ export default class ProfilePage extends React.Component {
         this.state = {
             name: null,
             email: null,
+            picture: null,
             menuList: []
         }
 
@@ -33,8 +34,8 @@ export default class ProfilePage extends React.Component {
     getProfile = async () => {
         try {
             const res = await Api.get('profile/me');
-            const { name, username } = res.data.data;
-            this.setState({ name: name, email: username });
+            const { name, username, picture } = res.data.data;
+            this.setState({ name: name, email: username, picture: picture });
         } catch (error) {
             console.log(error)
         }
@@ -52,15 +53,59 @@ export default class ProfilePage extends React.Component {
 
     render() {
 
+        const uploadConfig = {
+            name: 'picture',
+            multiple: false,
+            showUploadList: {
+                showDownloadIcon: false,
+            },
+            onRemove: file => {
+
+            },
+            action: process.env.REACT_APP_API_SERVER + 'profile/picture',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            beforeUpload: file => {
+                if (file.type !== 'image/png') {
+                    message.error(`${file.name} is not a png file`);
+                }
+                return file.type === 'image/png';
+            },
+            onChange: info => {
+
+                if (info.file.status !== 'uploading') {
+                    // console.log(info.file, info.fileList);
+                }
+                if (info.file.status === 'done') {
+
+                    message.success(`ได้ทำการอัพโหลดรูปแล้ว`);
+                    const { response } = info.file;
+
+                    this.setState({ picture : response.data._id });
+
+                } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} file upload failed.`);
+                }
+            },
+        };
+
+
 
         return (
             <div style={{ padding: 10 }}>
                 <h1>ข้อมูลส่วนตัว</h1>
                 <Row>
                     <Col span={24} style={{ textAlign: 'center' }}>
-                        <Avatar style={{ maxWidth: '100%' }} size={120} icon={<UserOutlined />} />
-                        
-                        
+                        {!this.state.picture ? <Avatar style={{ maxWidth: '100%' }} size={120} icon={<UserOutlined />} />
+                            : <Avatar style={{ maxWidth: '100%' }} size={120}
+                                src={process.env.REACT_APP_API_SERVER + 'picture/' + this.state.picture} />
+                        }
+                        <div style={{ textAlign: 'center' , marginTop : 10  }} >
+                            <Upload {...uploadConfig} showUploadList={false} >
+                                <Button><UploadOutlined /> เลือกภาพประจำตัว</Button>
+                            </Upload>
+                        </div>
                     </Col>
                 </Row>
 
@@ -70,18 +115,18 @@ export default class ProfilePage extends React.Component {
                         <div>อีเมล์ : {this.state.email || "-"}</div>
                     </Col>
                 </Row>
-                <h1>แก้ไขเมนูของท่าน ({this.state.menuList.length } เมนู) </h1>
+                <h1>แก้ไขเมนูของท่าน ({this.state.menuList.length} เมนู) </h1>
                 <Row>
                     <Col span={24}>
                         <List
                             bordered
                             dataSource={this.state.menuList}
                             renderItem={item => {
-                                const { _id, title, detail, picture, star } = item ;
+                                const { _id, title, detail, picture, star } = item;
                                 return (
                                     <List.Item>
-                                        <Link to={'/menu/edit/' + _id} style={{ display: 'block' , width : '100%' }} >
-                                            <ListItem {...item } />
+                                        <Link to={'/menu/edit/' + _id} style={{ display: 'block', width: '100%' }} >
+                                            <ListItem {...item} />
                                         </Link>
                                     </List.Item>
                                 )
