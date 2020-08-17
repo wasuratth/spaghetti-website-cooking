@@ -64,6 +64,7 @@ function App() {
           <PrivateRoute path="/comment/:menu_id"><CommentPage /></PrivateRoute>
           <PrivateRoute path="/group/:id" ><GroupPage /></PrivateRoute>
           <PrivateRoute path="/knowledge/:id"><KnowledgeViewPage /></PrivateRoute>
+          <PrivateRoute path="/search/:search"><SearchViewPage /></PrivateRoute>
           <PrivateRoute path="/knowledge"><KnowledgePage /></PrivateRoute>
           
           <Route path="*">

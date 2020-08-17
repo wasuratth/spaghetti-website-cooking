@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useParams, Redirect } from 'react-router';
 import { Route, Switch, Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 
@@ -24,7 +24,7 @@ class GroupPage extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { menuList: [] }
+        this.state = { title : "" , menuList: [] , txtSearch : "" , isSearch : false  }
        
      }
 
@@ -32,20 +32,39 @@ class GroupPage extends React.Component {
         try {
             const id = this.props.match.params.id; 
             const res = await Api.get('groupmap/type/' + id );
-            this.setState({ menuList: res.data.data });
+            this.setState({ title : res.data.title ,  menuList: res.data.data });
         } catch (error) {
             console.log(error)
         }
 
     }
 
+    handleChangeSearch = (event) => {
+        this.setState({ txtSearch: event.target.value }); 
+    }
+
+    
+    handleKeyDownSearch = async (event) => {
+        if (event.key === 'Enter') {
+            this.searchMenu();
+        }
+    }
+
+    searchMenu  = async () => {
+        this.setState({ isSearch : true  }); 
+    }
+
+
     render() {
 
 
-        return (
+        return ( this.state.isSearch ? <Redirect to={'/search/' + this.state.txtSearch } /> : 
             <div style={{ padding: 10 }}>
-                <h1>อาหารเพื่อสุขภาพ</h1>
-                <Input placeholder="Search" prefix={<SearchOutlined />} />
+                <h1>{this.state.title}</h1>
+                <Input placeholder="Search" prefix={<SearchOutlined />} 
+                value={this.state.txtSearch}
+                onChange={this.handleChangeSearch} 
+                onKeyDown={this.handleKeyDownSearch}  />
                 {/* <Row>
                 <img src={pic_menu1} style={{maxWidth: '30%' , float:'left'  , display : 'block'}} />
                 </Row>

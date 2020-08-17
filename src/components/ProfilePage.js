@@ -48,7 +48,7 @@ export default class ProfilePage extends React.Component {
                 <Row style={{marginTop:20 }}>
                     <Col span={24} className={["font-kanit"]} style={{fontSize : 24 , textAlign :"left" , padding : 10 }}>
                         <div>ชื่อ : {this.state.name}</div>
-                        <div>อีเมล์ : {this.state.email && "-"  }</div>
+                        <div>อีเมล์ : {this.state.email || "-"  }</div>
                     </Col>
                 </Row>
             </div>
