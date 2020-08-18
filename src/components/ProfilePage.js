@@ -9,11 +9,15 @@ import {
     UploadOutlined
 } from '@ant-design/icons';
 
+
+
 import ListItem from '../components/ListItem';
+import { connect } from 'react-redux';
+import { changeProfilePicture } from '../actions';
 
 import Api from '../api/Api';
 
-export default class ProfilePage extends React.Component {
+class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -81,8 +85,8 @@ export default class ProfilePage extends React.Component {
 
                     message.success(`ได้ทำการอัพโหลดรูปแล้ว`);
                     const { response } = info.file;
-
-                    this.setState({ picture : response.data._id });
+                    this.props.changeProfilePicture(null) ; 
+                    this.setState({ picture: response.data._id });
 
                 } else if (info.file.status === 'error') {
                     message.error(`${info.file.name} file upload failed.`);
@@ -101,7 +105,7 @@ export default class ProfilePage extends React.Component {
                             : <Avatar style={{ maxWidth: '100%' }} size={120}
                                 src={process.env.REACT_APP_API_SERVER + 'picture/' + this.state.picture} />
                         }
-                        <div style={{ textAlign: 'center' , marginTop : 10  }} >
+                        <div style={{ textAlign: 'center', marginTop: 10 }} >
                             <Upload {...uploadConfig} showUploadList={false} >
                                 <Button><UploadOutlined /> เลือกภาพประจำตัว</Button>
                             </Upload>
@@ -140,3 +144,9 @@ export default class ProfilePage extends React.Component {
         )
     }
 }
+
+
+export default connect(
+    null,
+    { changeProfilePicture }
+)(ProfilePage)
