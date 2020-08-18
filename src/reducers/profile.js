@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 // Each reducer must define the initial state it works on.
 // console.log(localStorage.getItem('token')) ; 
-const jwt = jwtDecode(localStorage.getItem('token'));
+const jwt = localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : { id: false };
 const initialState = {
     picture: process.env.REACT_APP_API_SERVER + 'profile/picture/' + jwt.id + '/' + new Date().getTime(),
 };
