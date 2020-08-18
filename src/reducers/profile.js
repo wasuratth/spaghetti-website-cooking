@@ -1,8 +1,11 @@
 import actionTypes from '../actions/actionTypes';
+import jwtDecode   from 'jwt-decode' ; 
 
 // Each reducer must define the initial state it works on.
-const initialState = {
-    picture: null ,
+// console.log(localStorage.getItem('token')) ; 
+const jwt = jwtDecode(localStorage.getItem('token')) ; 
+ const initialState = {
+    picture: process.env.REACT_APP_API_SERVER + 'profile/picture/' + jwt.id + '/' + new Date().getTime()   ,
 };
 
 const changeProfilePicture = (state, action) => {
@@ -11,7 +14,7 @@ const changeProfilePicture = (state, action) => {
     });
 };
 
-const profileReducers = (state = initialState, action) => {
+const profile = (state = initialState, action) => {
     // usually reducer core is just a switch on action.type
     // if you need to perform operations on values, create an external function and use it
     switch (action.type) {
@@ -22,4 +25,4 @@ const profileReducers = (state = initialState, action) => {
     }
 };
 
-export default profileReducers;
+export default profile ;
