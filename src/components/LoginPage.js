@@ -45,7 +45,7 @@ export default class LoginPage extends React.Component {
                 <div style={{ textAlign: 'center' }}>
                     <img src={logo} style={{ maxWidth: 200, margin: 'auto' }} />
                     <div style={{ paddingTop: 20 }}>
-                        <h1>เข้าสู่ระบบ</h1>
+                        <h1>เข้าสู่ระบบสมาชิก</h1>
                         <h3>ยินดีต้อนรับสมาชิก</h3>
                     </div>
                 </div>
