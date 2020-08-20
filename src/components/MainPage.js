@@ -1,14 +1,14 @@
 import React from 'react';
 
-import icon1 from '../image/icon/1.png';
-import icon2 from '../image/icon/2.png';
-import icon3 from '../image/icon/3.png';
-import icon4 from '../image/icon/4.png';
-import icon5 from '../image/icon/5.png';
-import icon6 from '../image/icon/6.png';
-import icon7 from '../image/icon/7.png';
-import icon8 from '../image/icon/8.png';
-import icon9 from '../image/icon/9.png';
+import icon1 from '../image/icon/01.png';
+import icon2 from '../image/icon/02.png';
+import icon3 from '../image/icon/03.png';
+import icon4 from '../image/icon/04.png';
+import icon5 from '../image/icon/05.png';
+import icon6 from '../image/icon/06.png';
+import icon7 from '../image/icon/07.png';
+import icon8 from '../image/icon/08.png';
+import icon9 from '../image/icon/09.png';
 
 
 

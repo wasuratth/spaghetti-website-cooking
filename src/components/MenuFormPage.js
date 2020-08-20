@@ -76,7 +76,7 @@ class MenuFormPage extends React.Component {
             onRemove: file => {
 
             },
-            action: process.env.REACT_APP_API_SERVER + 'picture',
+            action: (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'picture',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`,
             },

@@ -56,7 +56,7 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-
+        
         const uploadConfig = {
             name: 'picture',
             multiple: false,
@@ -66,7 +66,7 @@ class ProfilePage extends React.Component {
             onRemove: file => {
 
             },
-            action: process.env.REACT_APP_API_SERVER + 'profile/picture',
+            action: (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'profile/picture',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`,
             },
