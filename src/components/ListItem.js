@@ -7,7 +7,7 @@ const ListItem = (props) => {
 
     const { title, detail, star, picture  } = props;
 
-    const imgUrl = picture ? process.env.REACT_APP_API_SERVER + 'picture/' + picture : logo ; 
+    const imgUrl = picture ? (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'picture/' + picture : logo ; 
 
     return (<>
         <Row justify="left">

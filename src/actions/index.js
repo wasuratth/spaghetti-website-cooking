@@ -6,7 +6,7 @@ export const changeProfilePicture = (event) => {
     return {
         type: actionTypes.CHANGE_PROFILE_PICTURE,
         payload: {
-            newValue : process.env.REACT_APP_API_SERVER + 'profile/picture/' + jwt.id + '/' + new Date().getTime() ,
+            newValue :  (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'profile/picture/' + jwt.id + '/' + new Date().getTime() ,
         },
     };
 };

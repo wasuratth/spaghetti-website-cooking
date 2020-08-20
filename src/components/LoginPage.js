@@ -28,11 +28,8 @@ export default class LoginPage extends React.Component {
                 localStorage.setItem('token', token);
                 this.setState({ isLogin: true })
             } catch (error) {
-                if(error.response.status == 404 ){
-                    message.error("อีเมล์ หรือ รหัสผ่าน ไม่ถูกต้อง");
-                }else{
-                    message.error("ERROR");
-                }
+                console.log(error) ; 
+                message.error("อีเมล์ หรือ รหัสผ่าน ไม่ถูกต้อง");
                 
             }
 

@@ -47,5 +47,3 @@ test('Test Click Register ', () => {
 
 
 })
-
- 

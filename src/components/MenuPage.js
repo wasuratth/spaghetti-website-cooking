@@ -46,10 +46,8 @@ class MenuPage extends React.Component {
     render() {
 
         const { _id, title, detail, picture, star, ingredients, step } = this.state.menu;
-        const imgUrl = process.env.REACT_APP_API_SERVER + 'picture/' + picture;
-
-
-
+        const imgUrl =  (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'picture/' + picture;
+ 
         return (
             <div style={{ padding: 10 }}>
                 <h1 style={{ wordBreak: 'break-all', margin: 0 }}>{title}</h1>

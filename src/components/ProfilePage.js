@@ -103,7 +103,7 @@ class ProfilePage extends React.Component {
                     <Col span={24} style={{ textAlign: 'center' }}>
                         {!this.state.picture ? <Avatar style={{ maxWidth: '100%' }} size={120} icon={<UserOutlined />} />
                             : <Avatar style={{ maxWidth: '100%' }} size={120}
-                                src={process.env.REACT_APP_API_SERVER + 'picture/' + this.state.picture} />
+                                src={(process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'picture/' + this.state.picture} />
                         }
                         <div style={{ textAlign: 'center', marginTop: 10 }} >
                             <Upload {...uploadConfig} showUploadList={false} >

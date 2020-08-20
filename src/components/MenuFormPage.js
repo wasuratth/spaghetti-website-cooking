@@ -221,7 +221,7 @@ class MenuFormPage extends React.Component {
 
                         <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }} >
                             {this.state.menu.picture &&
-                                <img src={process.env.REACT_APP_API_SERVER + 'picture/' + this.state.menu.picture}
+                                <img src={ (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'picture/' + this.state.menu.picture}
                                     style={{
                                         maxWidth: '100%',
                                         display: 'block',

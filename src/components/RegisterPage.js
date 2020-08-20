@@ -24,7 +24,7 @@ export default class RegisterPage extends React.Component {
                 this.setState({ isRegisted: true }) ; 
                 message.info("ได้ทำการสมัครสมาชิกแล้ว");
             } catch (error) {
-                message.error("ไม่สามารถสมัครสมาชิกได้");
+                message.error("อีเมล์ ของท่านถูกใช้สมัครไปแล้วกรุณาตรวจสอบอีกครั้ง");
             }
 
         }
