@@ -7,8 +7,10 @@ import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import api from '../api/Api';
 
+import { connect } from 'react-redux';
+import { changeProfilePicture } from '../actions';
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props)
 
@@ -27,6 +29,7 @@ export default class LoginPage extends React.Component {
                 const { token } = res.data;
                 localStorage.setItem('token', token);
                 this.setState({ isLogin: true })
+                this.props.changeProfilePicture(null);
             } catch (error) {
                 console.log(error) ; 
                 message.error("อีเมล์ หรือ รหัสผ่าน ไม่ถูกต้อง");
@@ -82,3 +85,8 @@ export default class LoginPage extends React.Component {
         </>
     }
 }
+
+export default connect(
+    null,
+    { changeProfilePicture }
+)(LoginPage)

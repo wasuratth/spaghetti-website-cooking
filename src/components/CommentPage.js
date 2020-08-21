@@ -114,7 +114,11 @@ class CommentPage extends React.Component {
                             <Comment
                                 //actions={actions}
                                 author={<a><strong>{user.name}</strong></a>}
-                                avatar={<Avatar icon={<UserOutlined />} />}
+                                avatar={!user.picture ? 
+                                <Avatar size={32} icon={<UserOutlined />}  /> 
+                                :  <Avatar size={32} src={ (process.env.REACT_APP_API_SERVER 
+                                                || "https://spaghetti-api.topwork.asia/api/")   
+                                                + 'profile/picture/' +  user._id + '/' + new Date().getTime() } /> }
                                 content={
                                     <div>
                                         <p>{cm_detail}</p>
