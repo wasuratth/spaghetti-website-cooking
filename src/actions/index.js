@@ -1,29 +1,13 @@
-export const changeValue = (event) => {
-    return {
-        type: actionTypes.CHANGE_VALUE,
-        payload: {
-            newValue: event.target.value,
-        },
-    };
-};
+import actionTypes from './actionTypes';
+import jwtDecode from 'jwt-decode';
 
-// TODO: IMPLEMENT ME
-// I work with /reducers/exercise1.js
-export const buttonClicked = (event) => {
-     console.log(event.target.innerHTML) ; 
+export const changeProfilePicture = (event) => {
+    const jwt = jwtDecode(localStorage.getItem('token')) ; 
     return {
-        type: actionTypes.BUTTON_CLICKED ,
+        type: actionTypes.CHANGE_PROFILE_PICTURE,
         payload: {
-            newValue: event.target.innerHTML  ,
+            newValue :  (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/") + 'profile/picture/' + jwt.id + '/' + new Date().getTime() ,
         },
     };
 };
-
-export const boxTicked = (event) => {
-    return {
-        type: actionTypes.BOX_TICKED,
-        payload: {
-            hasTickedBox: event.target.checked,
-        },
-    };
-};
+ 

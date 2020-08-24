@@ -4,22 +4,34 @@ import logo from '../logo.png';
 
 import { useHistory , Redirect } from 'react-router-dom' ; 
 import { Form, Input, Button, Checkbox , message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined , MailOutlined } from '@ant-design/icons';
 import api from '../api/Api' ; 
 
 
 export default class RegisterPage extends React.Component {
-   
+    constructor(props) {
+        super(props)
+
+        this.state = { isRegisted : false };
+    }
+
     render() {
          
 
         const onFinish = async (values ) =>  {
-            
+            try {
+                const res = await api.post("auth/signup", { ...values });
+                this.setState({ isRegisted: true }) ; 
+                message.info("ได้ทำการสมัครสมาชิกแล้ว");
+            } catch (error) {
+                message.error("อีเมล์ ของท่านถูกใช้สมัครไปแล้วกรุณาตรวจสอบอีกครั้ง");
+            }
+
         }
 
 
 
-        return [
+        return this.state.isRegisted ? <Redirect to="login" />: <>
             <div style={{padding:10}}>
                 <div style={{ textAlign: 'center' }}>
                     <img src={logo} style={{ maxWidth: 150 , margin: 'auto' }} />
@@ -36,36 +48,39 @@ export default class RegisterPage extends React.Component {
                 >
                      <Form.Item
                         name="name"
-                        rules={[{ required: true, message: 'Please input your Name!' }]}
+                        rules={[{ required: true, message: 'กรุณากรอก ชื่อ-สกุล ผู้ใช้งาน' }]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="กรุณากรอกชื่อ"  size="large" />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="ชื่อ-สกุล"  size="large" />
                     </Form.Item>
                     <Form.Item
                         name="username"
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                        rules={[
+                            { required: true, message: 'กรุณากรอก อีเมล์' } , 
+                            {  type: 'email', message: 'รูปแบบอีเมล์ไม่ถูกต้อง', } 
+                        ]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="กรุณากรอกอีเมล์"  size="large" />
+                        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="อีเมล์"  size="large" />
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
+                        rules={[{ required: true, message: 'กรุณากรอก รหัสผ่าน' }]}
                     >
                         <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
-                            placeholder="Password"
+                            placeholder="รหัสผ่าน"
                             size="large"
 
                         />
-                    </Form.Item>
+                    </Form.Item> 
                     <Form.Item
                         name="confirmpassword"
-                        rules={[{ required: true, message: 'Please input your Confirm Password!' }]}
+                        rules={[{ required: true, message: 'กรุณากรอก ยืนยันรหัสผ่าน' }]}
                     >
                         <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder="ยืนยันรหัสผ่าน"
                             size="large"
 
                         />
@@ -76,6 +91,6 @@ export default class RegisterPage extends React.Component {
                 </div>
                 
             </div>
-        ]
+        </>
     }
 }
