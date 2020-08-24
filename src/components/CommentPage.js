@@ -89,7 +89,7 @@ class CommentPage extends React.Component {
     render() {
         let { txtComment, rateStar, comments } = this.state;
         const { picture } = this.state.menu;
-        const imgUrl = picture ? process.env.REACT_APP_API_SERVER + 'picture/' + picture : null;
+        const imgUrl = picture ? (process.env.REACT_APP_API_SERVER || "https://spaghetti-api.topwork.asia/api/")  + 'picture/' + picture : null;
 
         return (
             <div style={{ padding: 10 }}>
